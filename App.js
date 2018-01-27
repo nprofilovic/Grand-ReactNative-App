@@ -17,7 +17,8 @@ const Tabs = TabNavigator ({
   Home: { screen: Home },
   Events: { screen: Events },
   Photos: { screen: Photos },
-  More: {screen: More}
+  More: {screen: More},
+  
 },{
   tabBarPosition: 'bottom',
   tabBarOptions: {
