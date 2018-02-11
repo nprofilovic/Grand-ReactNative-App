@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, StyleSheet, Text, Dimensions } from 'react-native';
 
 class ImageElement extends React.Component{
     static navigationOptions = {
@@ -9,9 +9,11 @@ class ImageElement extends React.Component{
     }
     render(){
         return(
-            <View style={styles.image}>
-                <Text>Image Element</Text>
-            </View>
+           
+                <Image source={this.props.imgsource} style={styles.image} ></Image>
+                
+       
+
            
         );
     }
@@ -20,8 +22,14 @@ class ImageElement extends React.Component{
 const styles = StyleSheet.create({
     image: {
         flex: 1,
-        width: null,
+        width: null ,
+       
+        
         alignSelf: 'stretch',
+        padding: 4,
+        margin: 4,
+        
+       
     }
 })
 

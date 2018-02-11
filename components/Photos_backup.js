@@ -11,13 +11,9 @@ import { View,
          StatusBar } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ImageElement from './ImageElement';
-import Lightbox from 'react-native-lightbox';
+resizeMode: 'contain'
 
-
-
-const apiUrl = 'http://www.bros-jeans.com/wp-json/wp/v2/posts?per_page=10';
-const WINDOW_WIDTH = Dimensions.get('window').width;
-const BASE_PADDING = 10;
+const apiUrl = 'http://www.bros-jeans.com/wp-json/wp/v2/posts?per_page=9';
 
 class Photos extends React.Component {
     constructor(){
@@ -64,20 +60,33 @@ class Photos extends React.Component {
         
       }
     render(){
-     
+      console.log('====================================');
+      console.log(this.state.images);
+      console.log('====================================');
       let images = this.state.images.map((val, key) => {
-        return <Lightbox key={key}  >
+        return <TouchableWithoutFeedback key={key} onPress={() => {this.setModalVisible(true, key)}}>
                 <View style={styles.imagewrap}>
-                  <ImageElement imgsource={{uri: val.better_featured_image.source_url}} style={styles.modal} title={val.title.rendered}></ImageElement>
+                  <ImageElement imgsource={{uri: val.better_featured_image.source_url}} ></ImageElement>
                 </View>
-               </Lightbox>
+               </TouchableWithoutFeedback>
       })
-      
       
       return(
        <ScrollView> 
         <View style={styles.container}>
             
+            <Modal style={styles.modal} animationType={'fade'}
+                    transparent={true} visible={this.state.modalVisible}
+                    onRequestClose={() => {}} >
+
+                    <View style={styles.modal}>
+                      <Text style={styles.text} 
+                            onPress={() => {this.setModalVisible(false)}}>Close</Text>
+                      <ImageElement imgsource={this.state.modalImage}></ImageElement>
+                    </View>
+
+            </Modal>
+
             {images}
         </View>
         </ScrollView>
@@ -94,7 +103,8 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   imagewrap: {
-   
+    margin: 2,
+    padding: 2,
     height: (Dimensions.get('window').height/3) - 12,
     width: (Dimensions.get('window').width/2) - 4,
     backgroundColor: '#fff',

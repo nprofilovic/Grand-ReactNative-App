@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ScrollView, ActivityIndicator, } from 'react-native';
-import { List, Icon, ListItem } from 'react-native-elements';
+import { View, Text, StyleSheet, Image, FlatList, ScrollView, ActivityIndicator, StatusBar } from 'react-native';
+import { List, Icon, ListItem, Avatar } from 'react-native-elements';
 import HTML from 'react-native-render-html';
 
-const apiUrl = 'http://www.bros-jeans.com/wp-json/wp/v2/media?order=asc';
-const apiUrlPost = 'http://www.bros-jeans.com/wp-json/wp/v2/posts';
+
 
 class Events extends React.Component {
   static navigationOptions = {
@@ -71,7 +70,7 @@ class Events extends React.Component {
     renderHeader = () => {
       return (
         <View style={styles.header} >
-          <Image source={require('../image/logobros.png')} resizeMode="contain"  />
+          <Image source={require('../img/logobros.png')} resizeMode="contain"  />
         </View>
         )
     };
@@ -113,23 +112,24 @@ class Events extends React.Component {
     };
     
     render(){
-      console.log(this.state.data);
      
       return(
         <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }} >
           <FlatList
-            style={{padding: 20}}
+            
             data={this.state.data}
             keyExtractor={item => item.id}
             ListHeaderComponent={this.renderHeader}
             ListFooterComponent={this.renderFooter}
             renderItem={({ item }) =>{
               if(((item.title.rendered).trim() != "") && ((item.title.rendered).trim() != "Copy"))
-              return (<View><ListItem
+              return (<View>
+                
+                <ListItem
                   roundAvatar
                   title={<HTML html={`${item.title.rendered}`} />}
-                  avatar={item.better_featured_image.source_url}
-                  containerStyle={{ borderBottomWidth: 0 }}
+                 // avatar={{uri: item.better_featured_image.source_url}}
+                  containerStyle={{ borderBottomWidth: 0, }} 
                 />
                 <View
                   style={{
